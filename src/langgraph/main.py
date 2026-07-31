@@ -3,7 +3,7 @@ import streamlit as st
 from src.langgraph.UI.streamlitUi.LoadUi import LoadStreamlitUi
 from src.langgraph.llms.groqllm import GroqLLM
 from src.langgraph.graph.graph_builder import GraphBuilder
-from src.langgraph.UI.streamlitUi.display_results import displayResultStreamlit
+from src.langgraph.UI.streamlitUi.display_results import DisplayResultStreamlit
 
 def load_langgraph_app():
 
