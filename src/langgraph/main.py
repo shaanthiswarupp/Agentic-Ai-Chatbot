@@ -47,7 +47,7 @@ def load_langgraph_app():
             try: 
                 graph = graph_builder.setup_graph(usecase)
                 print(user_message)
-                displayResultStreamlit(usecase,graph,user_message).display_results_on_ui()
+                DisplayResultStreamlit(usecase,graph,user_message).display_results_on_ui()
 
             except Exception as e :
                 st.error(f"Error: graph set up faiild - {e} ")
