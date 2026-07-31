@@ -2,8 +2,8 @@ import streamlit as st
 
 from src.langgraph.UI.streamlitUi.LoadUi import LoadStreamlitUi
 from src.langgraph.llms.groqllm import GroqLLM
-
-# from src.langgraph.graph.graph_builder import GraphBuilder
+from src.langgraph.graph.graph_builder import GraphBuilder
+from src.langgraph.UI.streamlitUi.display_results import displayResultStreamlit
 
 def load_langgraph_app():
 
@@ -25,7 +25,7 @@ def load_langgraph_app():
 
     user_message = st.chat_input("Enter your message:")
 
-    """ if user_message:
+    if user_message:
         try: 
             ##================== model=================
             obj_llm_config = GroqLLM(user_controls_input = user_input) ## Configure the LLM model based on user input
@@ -56,4 +56,4 @@ def load_langgraph_app():
         except Exception as e:
             st.error(f"Error configuring the LLM model: {e}")
             return  
-    """
+    
