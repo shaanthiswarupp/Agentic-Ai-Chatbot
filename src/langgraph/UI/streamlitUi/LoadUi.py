@@ -27,7 +27,7 @@ class LoadStreamlitUi:
             # LLM selection dropdown
             self.user_controls["selected_llm"] = st.selectbox("Select LLM:", llms_options)
 
-            if self.user_controls["selected_llm"] == 'groq':
+            if self.user_controls["selected_llm"] == 'Groq':
                 models_options = self.config.get_groq_models_options() ## from src.langgraph.UI.uiconfigfile.py
                 self.user_controls["selected_groq_model"] = st.selectbox("Select Groq Model:", models_options)
                 self.user_controls["GROQ_API_KEY"] = st.session_state["GROQ_API_KEY"]= st.text_input("Enter your Groq API Key:", type="password")
