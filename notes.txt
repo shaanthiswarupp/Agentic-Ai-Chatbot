@@ -1,1 +1,5 @@
 ### first commit
+
+### git remote add origin https://github.com/shaanthiswarupp/Agentic-Ai-Chatbot.git
+### git branch -M main
+### git push -u origin main
