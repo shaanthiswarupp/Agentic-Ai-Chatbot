@@ -7,7 +7,7 @@ class GraphBuilder:
         self.llm = model
         self.graph_builder = StateGraph(State)
 
-    def basic_chatbot_graph(self):
+    def basic_chatbot_build_graph(self):
         """  Builds a basic chatbot graph using LangGraph.
             This method initializes a chatbot node using the `BasicChatbotNode` class 
             and integrates it into the graph. The chatbot node is set as both the 
