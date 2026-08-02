@@ -28,13 +28,22 @@ class LoadStreamlitUi:
             self.user_controls["selected_llm"] = st.selectbox("Select LLM:", llms_options)
 
             if self.user_controls["selected_llm"] == 'Groq':
-                models_options = self.config.get_groq_models_options() ## from src.langgraph.UI.uiconfigfile.py
+
+                models_options = self.config.get_groq_models_options() ## from src.langgraph.UI.uiconfigfile.py   
+
                 self.user_controls["selected_groq_model"] = st.selectbox("Select Groq Model:", models_options)
+
                 self.user_controls["GROQ_API_KEY"] = st.session_state["GROQ_API_KEY"]= st.text_input("Enter your Groq API Key:", type="password")
-                
-            
+                if not self.user_controls["GROQ_API_KEY"]:
+                    st.warning("Please enter your Groq API Key to proceed.")
 
             # Use case selection dropdown
-            self.user_controls["selected_usecase"] = st.selectbox("Select Use Case:", usecases_options)
+            self.user_controls["selected_usecase"] = st.selectbox("Select Usecases:", usecases_options)
+
+            if self.user_controls["selected_usecase"] == 'Chatbot With Web':
+
+                self.user_controls["TAVELY_API_KEY"] = st.session_state["TAVELY_API_KEY"]= st.text_input("Enter your Tavely API Key:", type="password")            
+                if not self.user_controls["TAVELY_API_KEY"]:
+                    st.warning("Please enter your Tavely API Key to proceed.")
             
         return self.user_controls
