@@ -7,7 +7,7 @@ from langgraph.prebuilt import tools_condition,ToolNode
 
 from src.langgraph.nodes.chatbot_with_tool_node import ChatbotWithToolNode
 
-
+from src.langgraph.nodes.ai_news_node import AINewsNode
 
 
 class GraphBuilder:
@@ -34,6 +34,7 @@ class GraphBuilder:
 
     #=========== for chatbot with web    tools ==========================================================
     def chatbot_with_tool_build_graph(self):
+    
         """  Builds a chatbot with web graph tool integration.
           This method creates a chatbot graph includs the both BasicChatbotNode and a tool node . 
              it defines tools , initializes the chatbot with tool capabilities, and  sets up conditonal and direct edges between nodes.
@@ -59,6 +60,35 @@ class GraphBuilder:
         self.graph_builder.add_edge("tools", "chatbot")
         
 
+    #=============== AI news  ===============================================
+    def ai_news_builder_graph(self):
+        """ Builds a graph for an AI news application.""" 
+
+        ai_news_node = AINewsNode(self.llm)
+
+        # ADD nodes for the AI news application        
+        self.graph_builder.add_node("fetch_news", ai_news_node.fetch_news )
+        self.graph_builder.add_node("summarize_news",  ai_news_node.summarize_news)
+        self.graph_builder.add_node("save_result",  ai_news_node.save_result)
+
+        # add edges for the AI news application
+        self.graph_builder.set_entry_point("fetch_news")
+        self.graph_builder.add_edge("fetch_news", "summarize_news")
+        self.graph_builder.add_edge("summarize_news", "save_result")
+        self.graph_builder.add_edge("save_result", END)
+                
+
+
+
+
+
+
+     
+
+
+
+
+
 
 
     ## ============== main function to setup the graph based on the usecase selected by the user in the UI ==========================
@@ -69,5 +99,8 @@ class GraphBuilder:
 
         elif usecase == "Chatbot With Tools":
             self.chatbot_with_tool_build_graph()
+
+        elif usecase == "AI News":
+            self.ai_news_builder_graph()
 
         return self.graph_builder.compile()

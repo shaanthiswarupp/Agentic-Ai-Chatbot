@@ -18,6 +18,10 @@ class LoadStreamlitUi:
         st.set_page_config( page_title = "🤖 " + self.config.get_page_title(), layout="wide" )
         st.header("🤖 " + self.config.get_page_title()) ## page title from src.langgraph.UI.uiconfigfile.py
 
+        # for fetch news button before the user message input box
+        st.session_state.timeframe = ''
+        st.session_state.IsFetchButtonClicked = False
+
         ## left side portion of the page for user controls
         with st.sidebar:
 
@@ -41,10 +45,20 @@ class LoadStreamlitUi:
             # Use case selection dropdown
             self.user_controls["selected_usecase"] = st.selectbox("Select Usecases", usecases_options)
 
-            if self.user_controls["selected_usecase"] == 'Chatbot With Tools':
+            if self.user_controls["selected_usecase"] == 'Chatbot With Tools' or self.user_controls["selected_usecase"] == 'AI News':
                 os.environ["TAVILY_API_KEY"] = self.user_controls["TAVILY_API_KEY"] = st.session_state["TAVILY_API_KEY"]= st.text_input("Enter your Tavily API Key:", type="password")            
                 # validation for Tavily API Key
                 if not self.user_controls["TAVILY_API_KEY"]:
                     st.warning("Please enter your Tavily API Key to proceed.")
-            
+
+            if self.user_controls["selected_usecase"] == 'AI News':
+                st.subheader("AI News Explorer")
+
+                with st.sidebar:
+                    time_frame = st.selectbox("Select Time Frame", ["Daily", "Last 7 days", "Last 30 days"], index=0)
+
+                if st.button("Fetch AI News", use_container_width=True):
+                   st.session_state.isFetchButtonClicked = True
+                   st.session_state.time_frame = time_frame
+
         return self.user_controls
