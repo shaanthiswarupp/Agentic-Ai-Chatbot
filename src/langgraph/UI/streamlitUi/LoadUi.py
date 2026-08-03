@@ -55,10 +55,10 @@ class LoadStreamlitUi:
                 st.subheader("AI News Explorer")
 
                 with st.sidebar:
-                    time_frame = st.selectbox("Select Time Frame", ["Daily", "Last 7 days", "Last 30 days"], index=0)
+                    time_frame = st.selectbox("Select Time Frame", ["Daily", "weekly", "monthly"], index=0)
 
                 if st.button("Fetch AI News", use_container_width=True):
-                   st.session_state.isFetchButtonClicked = True
-                   st.session_state.time_frame = time_frame
+                   st.session_state.IsFetchButtonClicked = True
+                   st.session_state.timeframe = time_frame
 
         return self.user_controls
