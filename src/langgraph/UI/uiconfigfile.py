@@ -20,3 +20,10 @@ class config:
 
     def get_usecases_options(self):
         return self.config.get("DEFAULT", "USECASES_OPTIONS").split(", ")
+
+    
+
+    # ================== open Ai 
+
+    def get_openai_models_options(self):
+        return self.config.get("DEFAULT", "OPENAI_MODELS_OPTIONS").split(", ")

@@ -42,6 +42,24 @@ class LoadStreamlitUi:
                     st.warning("Please enter your Groq API Key to proceed.")
 
 
+
+            #==================== open Ai==============================
+            elif self.user_controls["selected_llm"] == 'OpenAI':
+                openai_models_options = self.config.get_openai_models_options() ## from src.langgraph.UI.uiconfigfile.py   
+
+                self.user_controls["selected_openai_model"] = st.selectbox("Select OpenAI Model:", openai_models_options)
+
+                self.user_controls["OPENAI_API_KEY"] = st.session_state["OPENAI_API_KEY"]= st.text_input("Enter your OpenAI API Key:", type="password")
+                if not self.user_controls["OPENAI_API_KEY"]:
+                    st.warning("Please enter your OpenAI API Key to proceed.")
+
+
+
+
+
+
+
+
             # Use case selection dropdown
             self.user_controls["selected_usecase"] = st.selectbox("Select Usecases", usecases_options)
 

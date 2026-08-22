@@ -1,7 +1,7 @@
 import streamlit as st
 
 from src.langgraph.UI.streamlitUi.LoadUi import LoadStreamlitUi
-from src.langgraph.llms.groqllm import GroqLLM
+from src.langgraph.llms.llm_factory import LLMFactory
 from src.langgraph.graph.graph_builder import GraphBuilder
 from src.langgraph.UI.streamlitUi.display_results import DisplayResultStreamlit
 
@@ -34,8 +34,9 @@ def load_langgraph_app():
 
     if user_message:
         try: 
-            ##================== model=================
-            obj_llm_config = GroqLLM(user_controls_input = user_input) ## Configure the LLM model based on user input
+            ##========= model====[open ai or groq]=====changes done here Groq -> LLMFactory
+            
+            obj_llm_config = LLMFactory(user_controls_input = user_input) ## Configure the LLM model based on user input
             model = obj_llm_config.get_llm_model() ## Configure the model
 
             if not model:
