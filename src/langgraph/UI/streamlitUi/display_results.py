@@ -22,7 +22,18 @@ class DisplayResultStreamlit:
                 for event in graph.stream({'messages':("user",user_message)} , config=config ): #---------------------> , config=config -----> new line
                     print(event.values())
                     for value in event.values():
-                        print(value['messages'])
+                        #print(value['messages'])# --------------------------------------------->old lines
+                        
+                        messages = value.get('messages', [])#----------------------------------------------------------new lines
+                        if isinstance(messages, list) and len(messages) > 0:
+                            last_message = messages[-1]
+                        else:
+                            last_message = messages
+    
+                        content = getattr(last_message, 'content', str(last_message))               
+
+
+                        #----------------------------------------------------------------------> old lines
                         with st.chat_message("user"):
                             st.write(user_message)
                         with st.chat_message("assistant"):
