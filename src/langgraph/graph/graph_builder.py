@@ -19,7 +19,7 @@ class GraphBuilder:
     def __init__(self, model):        
         self.llm = model
         self.graph_builder = StateGraph(State)
-        self.memory = MemorySaver()  # <---------------------------------- this line
+        self.memory = MemorySaver()  # <------------------------------------------------------------ this line
 
 
 
@@ -35,7 +35,7 @@ class GraphBuilder:
         self.graph_builder.add_edge(START, "chatbot")
         self.graph_builder.add_edge("chatbot", END)
         
-        # Compile with the checkpointer: <-------------this line
+        # Compile with the checkpointer: <----------------------------------------------------------------this line
         return self.graph_builder.compile(checkpointer=self.memory)
 
 
