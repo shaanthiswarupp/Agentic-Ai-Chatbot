@@ -14,8 +14,12 @@ class DisplayResultStreamlit:
         graph = self.graph
         user_message = self.user_message
         print(user_message)
+
+        #------------------------------
+        config = {"configurable": {"thread_id": st.session_state.get("thread_id", "default_thread")}} #----------------> new line for memory
+        
         if usecase =="Basic Chatbot":
-                for event in graph.stream({'messages':("user",user_message)}):
+                for event in graph.stream({'messages':("user",user_message)} , config=config ): #---------------------> , config=config -----> new line
                     print(event.values())
                     for value in event.values():
                         print(value['messages'])
@@ -28,7 +32,7 @@ class DisplayResultStreamlit:
         elif usecase=="Chatbot With Tools":
              # Prepare state and invoke the graph
             initial_state = {"messages": [user_message]}
-            res = graph.invoke(initial_state)
+            res = graph.invoke(initial_state , config=config ) #------------------------------------> , config=config -----> new line
             for message in res['messages']:
                 if type(message) == HumanMessage:
                     with st.chat_message("user"):
