@@ -23,10 +23,13 @@ def load_langgraph_app():
         st.error("Error: Failed to load user input from the UI.")
         return
         
+        
     # new --------------------------------------------------->>>>>>>>>>>>>>> new line for memery
-    if "thread_id" not in st.session_state:
-        st.session_state.thread_id = "agentic_chat_thread_1"
+    #if "thread_id" not in st.session_state:
+        #st.session_state.thread_id = "agentic_chat_thread_1"
     #------------------------------------------------------------------
+
+    
     
     ## default ==>>>> user_message = st.chat_input("Enter your message:")
     
@@ -53,32 +56,47 @@ def load_langgraph_app():
 
             if not usecase:
                 st.error("Error: No use case selected.")
-                return
-                
-            # -------------------------------------------------------------------------------------------- ------>>>>> new line for memory     
-            
-            # new-----> Persistent Graph Setup (Persist in session_state so memory isn't wiped)
-            
-            cache_key = f"compiled_graph_{usecase}"
-            if cache_key not in st.session_state:
-                graph_builder = GraphBuilder(model)
-                st.session_state[cache_key] = graph_builder.setup_graph(usecase)
-            graph = st.session_state[cache_key] #-------------------------------------------------------------------------------------------- ------>>>>> new line for memory    
-                
-            #-------------------------------------------------------------------
+                return           
+                        
 
-            
-
-            ##================== graph Builder  =================
+            ##==================old  graph Builder  =================
             #graph_builder = GraphBuilder(model) ---------------------------->> for memeory saver hashesd  change later(#remove hash)
-            try: 
+            #try: 
                 #graph = graph_builder.setup_graph(usecase) #---------------------------->> for memeory saver hashesd  change later(#remove hash)
-                print(user_message)
-                DisplayResultStreamlit(usecase,graph,user_message).display_result_on_ui()
+                #print(user_message)
+                #DisplayResultStreamlit(usecase,graph,user_message).display_result_on_ui()
 
-            except Exception as e :
-                st.error(f"Error: graph set up faiild - {e} ")
+            #except Exception as e :
+                #st.error(f"Error: graph set up faiild - {e} ")
+                #return
+
+
+
+
+
+            
+
+            #============================ -new graph builder =========================-----
+            ##================== New graph Builder (Persistent) =================
+            if "thread_id" not in st.session_state:
+                st.session_state.thread_id = "user_session_1"
+            
+            # Store the graph in session_state so memory persists across questions
+            graph_key = f"cached_graph_{usecase}_{user_input.get('selected_llm')}"
+            if graph_key not in st.session_state:
+                graph_builder = GraphBuilder(model)
+                st.session_state[graph_key] = graph_builder.setup_graph(usecase)
+            
+            graph = st.session_state[graph_key]
+            
+            try: 
+                print(user_message)
+                DisplayResultStreamlit(usecase, graph, user_message).display_result_on_ui()
+            except Exception as e:
+                st.error(f"Error: graph execution failed - {e}")
                 return
+            #======================================================================================  
+                    
 
         except Exception as e:
             st.error(f"Error configuring the LLM model: {e}")
