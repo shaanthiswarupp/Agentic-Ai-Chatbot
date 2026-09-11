@@ -60,41 +60,37 @@ def load_langgraph_app():
                         
 
             ##==================old  graph Builder  =================
-            #graph_builder = GraphBuilder(model) ---------------------------->> for memeory saver hashesd  change later(#remove hash)
-            #try: 
-                #graph = graph_builder.setup_graph(usecase) #---------------------------->> for memeory saver hashesd  change later(#remove hash)
-                #print(user_message)
-                #DisplayResultStreamlit(usecase,graph,user_message).display_result_on_ui()
+            graph_builder = GraphBuilder(model) ---------------------------->> for memeory saver hashesd  change later(#remove hash)
+            try: 
+                graph = graph_builder.setup_graph(usecase) #---------------------------->> for memeory saver hashesd  change later(#remove hash)
+                print(user_message)
+                DisplayResultStreamlit(usecase,graph,user_message).display_result_on_ui()
 
-            #except Exception as e :
-                #st.error(f"Error: graph set up faiild - {e} ")
-                #return
-
-
-
-
+            except Exception as e :
+                st.error(f"Error: graph set up faiild - {e} ")
+                return
 
             
 
             #============================ -new graph builder =========================-----
-            ##================== New graph Builder (Persistent) =================
-            if "thread_id" not in st.session_state:
-                st.session_state.thread_id = "user_session_1"
+            # ##================== New graph Builder (Persistent) =================
+            # if "thread_id" not in st.session_state:
+            #     st.session_state.thread_id = "user_session_1"
             
-            # Store the graph in session_state so memory persists across questions
-            graph_key = f"cached_graph_{usecase}_{user_input.get('selected_llm')}"
-            if graph_key not in st.session_state:
-                graph_builder = GraphBuilder(model)
-                st.session_state[graph_key] = graph_builder.setup_graph(usecase)
+            # # Store the graph in session_state so memory persists across questions
+            # graph_key = f"cached_graph_{usecase}_{user_input.get('selected_llm')}"
+            # if graph_key not in st.session_state:
+            #     graph_builder = GraphBuilder(model)
+            #     st.session_state[graph_key] = graph_builder.setup_graph(usecase)
             
-            graph = st.session_state[graph_key]
+            # graph = st.session_state[graph_key]
             
-            try: 
-                print(user_message)
-                DisplayResultStreamlit(usecase, graph, user_message).display_result_on_ui()
-            except Exception as e:
-                st.error(f"Error: graph execution failed - {e}")
-                return
+            # try: 
+            #     print(user_message)
+            #     DisplayResultStreamlit(usecase, graph, user_message).display_result_on_ui()
+            # except Exception as e:
+            #     st.error(f"Error: graph execution failed - {e}")
+            #     return
             #======================================================================================  
                     
 
