@@ -10,10 +10,7 @@ class BasicChatbotNode:
     def process(self,state:State)->dict:
         """
         Processes the input state and generates a chatbot response.
-        """
-        messages = state["messages"]
-        response = self.llm.invoke(messages)
-        return {"messages": [response]}
+        """        
         
-        #return {"messages":self.llm.invoke(state['messages'])} ----------------> old 1 line 
+        return {"messages":self.llm.invoke(state['messages'])} ----------------> old 1 line 
 
