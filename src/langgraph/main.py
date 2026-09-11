@@ -22,7 +22,12 @@ def load_langgraph_app():
     if not user_input:
         st.error("Error: Failed to load user input from the UI.")
         return
-
+        
+    # new --------------------------------------------------->>>>>>>>>>>>>>> new line for memery
+    if "thread_id" not in st.session_state:
+        st.session_state.thread_id = "agentic_chat_thread_1"
+    #------------------------------------------------------------------
+    
     ## default ==>>>> user_message = st.chat_input("Enter your message:")
     
     # Text input for user message
@@ -49,11 +54,25 @@ def load_langgraph_app():
             if not usecase:
                 st.error("Error: No use case selected.")
                 return
+                
+            # -------------------------------------------------------------------------------------------- ------>>>>> new line for memory     
+            
+            # new-----> Persistent Graph Setup (Persist in session_state so memory isn't wiped)
+            
+            cache_key = f"compiled_graph_{usecase}"
+            if cache_key not in st.session_state:
+                graph_builder = GraphBuilder(model)
+                st.session_state[cache_key] = graph_builder.setup_graph(usecase)
+            graph = st.session_state[cache_key] #-------------------------------------------------------------------------------------------- ------>>>>> new line for memory    
+                
+            #-------------------------------------------------------------------
+
+            
 
             ##================== graph Builder  =================
-            graph_builder = GraphBuilder(model)
+            #graph_builder = GraphBuilder(model) ---------------------------->> for memeory saver hashesd  change later(#remove hash)
             try: 
-                graph = graph_builder.setup_graph(usecase)
+                #graph = graph_builder.setup_graph(usecase) #---------------------------->> for memeory saver hashesd  change later(#remove hash)
                 print(user_message)
                 DisplayResultStreamlit(usecase,graph,user_message).display_result_on_ui()
 
