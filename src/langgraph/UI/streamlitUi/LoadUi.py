@@ -72,17 +72,10 @@ class LoadStreamlitUi:
                 self.user_controls["TAVILY_API_KEY"] = tavily_key
                 if tavily_key:
                     os.environ["TAVILY_API_KEY"] = tavily_key
+                else:
+                    st.warning("Please enter your Tavily API Key to proceed.")
                 
-                # validation for Tavily API Key ====================>>>>>>>>>>> new lines
-                # if self.user_controls["selected_usecase"] in ['Chatbot With Tools', 'AI News']:
-                #     tavily_input = st.text_input("Enter your Tavily API Key:", type="password")
-                    
-                #     # Only set environment variable if user actually typed something
-                #     if tavily_input:
-                #         os.environ["TAVILY_API_KEY"] = tavily_input
-                #         self.user_controls["TAVILY_API_KEY"] = tavily_input
-                #     else:
-                #         st.warning("Please enter your Tavily API Key to proceed.") 
+               
                         
                 # ==================== old lines ===============
                 # if not self.user_controls["TAVILY_API_KEY"]:
