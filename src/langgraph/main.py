@@ -56,8 +56,15 @@ def load_langgraph_app():
 
             if not usecase:
                 st.error("Error: No use case selected.")
-                return           
-                        
+                return    
+                
+            ##================== tavily key check ================= new            
+            if usecase in ["Chatbot With Tools", "AI News"]:
+                tavily_key = user_input.get("TAVILY_API_KEY") or os.environ.get("TAVILY_API_KEY", "")
+                if not tavily_key:
+                    st.warning("⚠️ Please provide a valid Tavily API Key in the sidebar to proceed.")
+                    return
+                                    
 
            
 
