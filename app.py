@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 from src.langgraph.main import load_langgraph_app
 
 if __name__=="__main__":
