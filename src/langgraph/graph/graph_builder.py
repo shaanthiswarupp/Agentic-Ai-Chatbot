@@ -35,8 +35,7 @@ class GraphBuilder:
         self.graph_builder.add_edge(START, "chatbot")
         self.graph_builder.add_edge("chatbot", END)
         
-        # Compile with the checkpointer: <----------------------------------------------------------------this line
-        return self.graph_builder.compile(checkpointer=self.memory)
+       
 
 
 
@@ -103,10 +102,12 @@ class GraphBuilder:
     def setup_graph(self, usecase: str):
         if usecase == "Basic Chatbot":
             self.basic_chatbot_build_graph()
+            return self.graph_builder.compile(checkpointer=self.memory) #---->  =====>> new line
 
 
         elif usecase == "Chatbot With Tools":
             self.chatbot_with_tool_build_graph()
+            return self.graph_builder.compile(checkpointer=self.memory)  #---->  =====>> new line
 
         elif usecase == "AI News":
             self.ai_news_builder_graph()
