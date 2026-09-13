@@ -14,9 +14,8 @@ class DisplayResultStreamlit:
         graph = self.graph
         user_message = self.user_message
         print(user_message)
-
-        #------------------------------
-        config = {"configurable": {"thread_id": st.session_state.get("thread_id", "default_thread")}} #----------------> new line for memory
+      
+        config = {"configurable": {"thread_id": st.session_state.get("thread_id", "agentic_chat_thread_1")}}    #----------------> new line for memory
         
         if usecase =="Basic Chatbot":
                 for event in graph.stream({'messages':("user",user_message)} , config=config ): #---------------------> , config=config -----> new line
