@@ -76,18 +76,19 @@ class LoadStreamlitUi:
                 #     st.warning("Please enter your Tavily API Key to proceed.")
                 
                 if self.user_controls["selected_usecase"] in ['Chatbot With Tools', 'AI News']:
-                # 1. Fetch from st.secrets or environment variable first
-                default_tavily = st.secrets.get("TAVILY_API_KEY", os.environ.get("TAVILY_API_KEY", ""))
-            
-                # 2. Render input box with secret as default value
-                tavily_key = st.text_input("Enter your Tavily API Key:", value=default_tavily, type="password", key="tavily_api_key_input")
-            
-                # 3. Save to user_controls and environment
-                self.user_controls["TAVILY_API_KEY"] = tavily_key
-                if tavily_key:
-                    os.environ["TAVILY_API_KEY"] = tavily_key
-                else:
-                    st.warning("Please provide a valid Tavily API Key in the sidebar to proceed.")
+                    
+                    # 1. Fetch from st.secrets or environment variable first
+                    default_tavily = st.secrets.get("TAVILY_API_KEY", os.environ.get("TAVILY_API_KEY", ""))
+                
+                    # 2. Render input box with secret as default value
+                    tavily_key = st.text_input("Enter your Tavily API Key:", value=default_tavily, type="password", key="tavily_api_key_input")
+                
+                    # 3. Save to user_controls and environment
+                    self.user_controls["TAVILY_API_KEY"] = tavily_key
+                    if tavily_key:
+                        os.environ["TAVILY_API_KEY"] = tavily_key
+                    else:
+                        st.warning("Please provide a valid Tavily API Key in the sidebar to proceed.")
                 
                
                         
